@@ -1,7 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Axios from "axios";
+import Navbar from "./Components/Navbar.js"
+import Home from "./Components/Home.js"
+import Addition from "./Components/Addition";
+import Subtraction from "./Components/Subtraction";
 
 let base = window.location.host.includes("localhost")
   ? "//localhost:3000/"
@@ -16,40 +19,38 @@ let api = Axios.create({
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { apiResponse: "" }
-  }
-
-  async callAPI() {
-    try {
-      let res = await api.get("userinfo")
-      this.state.apiResponse = res.data
-    } catch (error) {
-      console.error(error)
+    this.state = {
+      view: "home"
     }
   }
-
-  componentWillMount() {
-    this.callAPI()
-  }
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            {this.state.apiResponse}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-        </a>
-        </header>
-      </div>
-    );
+    if (this.state.view === "home") {
+      return (
+        <div className="App">
+          <Navbar />
+          <Home changeView={this.changeView} />
+        </div>
+      );
+    } else if (this.state.view === "addition") {
+      return (
+        <div>
+          <Navbar />
+          <Addition changeView={this.changeView} />
+        </div>
+      )
+    } else if (this.state.view === "subtraction") {
+      return (
+        <div>
+          <Navbar />
+          <Subtraction changeView={this.changeView} />
+        </div>
+      )
+    }
+  }
+  changeView = (choice) => {
+    this.setState({
+      view: choice
+    })
   }
 }
 
