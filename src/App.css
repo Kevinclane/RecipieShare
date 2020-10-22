@@ -33,3 +33,13 @@
 .text-gold {
   color: rgb(212,175,55)
 }
+
+.number-text{
+  font-size: 10rem;
+}
+
+.answer-form{
+  height: 5rem;
+  font-size: 4rem;
+  width: 15%;
+}
